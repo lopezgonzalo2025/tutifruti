@@ -3,7 +3,7 @@ from pygame.locals import *
 from configuracion import *
 from funcionesVACIAS import *
 
-# Esta funcion ya no se usa
+# Esta funcion se dejo de usar
 def dameLetraApretada(key):
     if key == 59:
         return("ñ")
@@ -140,7 +140,7 @@ def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, 
     
     # Resultados
     ptsCoincidencia = 0
-    for idx in range(0, (len(eleccioncompu)-1)):
+    for idx in range(0, (len(eleccioncompu))):
         if eleccioncompu[idx] == eleccionUsuario[idx]:
             ptsCoincidencia += 10
   
@@ -165,12 +165,11 @@ def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, 
     nombre = ultimo_record[0][0]
     record = ultimo_record[0][1]
     tiempo = ultimo_record[0][2]
-
-
+    
     # Renderizar nuevo record
     if total > record:        
         #  Musica ganador
-        pygame.mixer.music.load("sonidos/luana/ganador.mp3")
+        pygame.mixer.music.load("sonidos/ganador.mp3")
         pygame.mixer.music.play()
     
     
@@ -188,7 +187,7 @@ def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, 
     # Renderizar record anterior
     else:        
         #  Musica perdedor
-        pygame.mixer.music.load("sonidos/luana/perdedor.mp3")
+        pygame.mixer.music.load("sonidos/perdedor.mp3")
         pygame.mixer.music.play()
 
         

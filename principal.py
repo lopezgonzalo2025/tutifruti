@@ -21,8 +21,6 @@ from extras import *
 
 
 def main():
-    #### CONFIGURACIONES DE PYGAME  ####
-    
     # centrar la ventana y despues inicializar pygame
     os.environ["SDL_VIDEO_CENTERED"] = "1"
     pygame.init()
@@ -30,55 +28,51 @@ def main():
     # preparar la ventana
     pygame.display.set_caption("TutiFrutiUNGS")
     screen = pygame.display.set_mode((ANCHO, ALTO))
-    
-    
-    ####   IMAGENES    ####
+        
+    # Imagenes
     fondoPresentacion = pygame.image.load("imagenes/fondo2.png").convert_alpha()
 
-    ##  CONSTANTES  ##
+    # Abcdario
     abc=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","ñ","o","p",
-         "q","r","s","t","u","v","w","x","y","z"]    
+         "q","r","s","t","u","v","w","x","y","z"]            
+    
+    '''
+    #  Items
     items=["paises", "colores", "animales"]    
     
-    colores=[]
-    paises=[]
-    animales=[]
-    
+    paises = (codecs.open("items/paises.txt",  "r", "utf-8").read()).split(",")
+    colores = (codecs.open("items/colores.txt",  "r", "utf-8").read()).split(",")
+    animales = (codecs.open("items/animales.txt",  "r", "utf-8").read()).split(",")
+      
     listaDeTodo=[paises, colores, animales]
+    #print(listaDeTodo)
+    '''
     
-    #  ITEMS  #
-    pais = codecs.open("items/paises.txt",  "r", "utf-8").read()
-    color = codecs.open("items/colores.txt",  "r", "utf-8").read()
-    animal = codecs.open("items/animales.txt",  "r", "utf-8").read()
+    listaDeTodo = []
+    items = []
+    lista = (codecs.open("items/lista.txt", "r", "utf-8").read()).split(".")
+    for i in range (len(lista)):
+        listaDeTodo.append(lista[i].split(","))
+        items.append(listaDeTodo[i][0])
+        listaDeTodo[i].pop(0)
     
-    paises.append(pais)
-    colores.append(color)
-    animales.append(animal)
-    
-    listaDeTodo = cargarItems(listaDeTodo)
     print(listaDeTodo)
     
-    jugar = True    
-    reiniciar = True   
-    
-    ####  CICLO DE JUEGO  ####
-    while jugar:
-        if reiniciar:
-            # Musica
-            pygame.mixer.music.load("sonidos/tetris.mp3")
-            pygame.mixer.music.play()
+                    ####  CICLO DE JUEGO  ####
+    JuegoNuevo = True 
+    while True:
+        if JuegoNuevo:
+            # Controladores de ciclo
+            JuegoNuevo = False   
+            presentacion = True
+            habilitarReinicio = False
+            ctaRegresiva = 4
+            i = 0
 
             # Tiempo total del juego
             gameClock = pygame.time.Clock()
             totaltime = 0
             fps = FPS_INICIAL
-            
-            # Controladores 
-            presentacion = True
-            habilitarReinicio = False
-            reiniciar = False   
-            ctaRegresiva = 1
-            i = 0
             
             # Variables
             puntos = 0
@@ -89,9 +83,11 @@ def main():
             aciertos = 0
             incorrectas = 0
             segundos = 0
-            
             letraAzar = unaAlAzar(abc)
-
+            
+            # Musica
+            #pygame.mixer.music.load("sonidos/tetris.mp3")
+            #pygame.mixer.music.play()
             
         while i < len(items):  
             # 1 frame cada 1/fps segundos
@@ -119,9 +115,12 @@ def main():
                         if e.key == K_BACKSPACE:
                                 palabraUsuario = palabraUsuario[0:len(palabraUsuario)-1]
                                 
-                        elif (e.key != K_RETURN and not presentacion):                                                
+                        elif (e.key != K_RETURN and not presentacion):   
+                            '''
+                            Se comentó la funcion para optener las letras ya que no acepaba tildes ni ñ
+                            Se optinen las letras apretadas por medio de unicode
+                            '''                                             
                             #letra = dameLetraApretada(e.key)                        
-                            # e.unicode acepta ñ y tildes
                             letra = e.unicode                        
                             palabraUsuario += letra
                        
@@ -147,7 +146,7 @@ def main():
                 habilitarReinicio = True
             pygame.display.flip()
     
-        while not reiniciar:
+        while not JuegoNuevo:
             for e in pygame.event.get():
                 if e.type == QUIT:
                     pygame.quit()
@@ -155,7 +154,7 @@ def main():
                 if e.type == KEYDOWN:
                     if habilitarReinicio and e.key == K_RETURN: 
                             i = 0
-                            reiniciar = True
+                            JuegoNuevo = True
     
 
 if __name__ == "__main__":

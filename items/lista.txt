@@ -1,0 +1,1 @@
+ANIMALES,vaca,alce,ñandú.COLORES,azul,rojo,verde.PAISES,argentina,brazil,peru

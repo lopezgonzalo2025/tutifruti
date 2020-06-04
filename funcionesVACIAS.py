@@ -3,7 +3,7 @@ import random
 def unaAlAzar(abc):
     #letraElegida = random.choice(abc)
     #return letraElegida
-    return "e"
+    return "a"
 
 def esCorrecta(palabraUsuario, letra, item, items, listaDeTodo):
     palabraUsuario = palabraUsuario.lower()
@@ -30,28 +30,12 @@ def juegaCompu(letraAzar, listaDeTodo):
     return resultado
 
 
-def cargarItems(listaDeTodo):
-    listaDeTodoModificada = []
-    opcion = ""    
-    idx = 0
-    for item in listaDeTodo:
-        listaDeTodoModificada.append([])
-        for string in item:
-            for char in string:
-                if char != ",":
-                    opcion += char
-                else:
-                    listaDeTodoModificada[idx].append(opcion)
-                    opcion = ""
-        idx += 1
-    return listaDeTodoModificada
-
 
 def guardar_puntajes(puntajes):
-    archivo = open("datos/historial.txt", "w")
+    historial = open("datos/historial.txt", "w")
     for nombre, puntaje, tiempo in puntajes:
-        archivo.write(nombre+","+str(puntaje)+","+tiempo+"\n")
-    archivo.close()
+        historial.write(nombre+","+str(puntaje)+","+tiempo+"\n")
+    historial.close()
 
 
 def recuperar_puntajes():
@@ -64,10 +48,6 @@ def recuperar_puntajes():
     historial.close()
     
     return puntajes
-
-
-
-
 
 
 
