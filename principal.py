@@ -117,8 +117,8 @@ def main():
                                 
                         elif (e.key != K_RETURN and not presentacion):   
                             '''
-                            Se comentó la funcion para optener las letras ya que no acepaba tildes ni ñ
-                            Se optinen las letras apretadas por medio de unicode
+                            Se comentó la funcion dameLetraApretada() ya que no acepaba tildes ni ñ
+                            Se optienen las letras por medio de e.unicode
                             '''                                             
                             #letra = dameLetraApretada(e.key)                        
                             letra = e.unicode                        
