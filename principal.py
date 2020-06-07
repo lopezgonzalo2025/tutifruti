@@ -36,18 +36,12 @@ def main():
     abc=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p",
          "q","r","s","t","u","v","w","x","y","z"]            
     
-    
     #  Items
     items=["nombres","animales","colores","sustantivos comunes","paises","marcas","cap o prov arg"]
    
     listaDeTodo = cargarItems()
     
-    print(listaDeTodo[0])
-    print("")
-    print(listaDeTodo[1])
-    print("")
-    
-    
+    print(listaDeTodo)    
 
                     ####  CICLO DE JUEGO  ####
     juegoNuevo = True 
