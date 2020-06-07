@@ -30,40 +30,26 @@ def main():
     screen = pygame.display.set_mode((ANCHO, ALTO))
         
     # Imagenes
-    fondoPresentacion = pygame.image.load("imagenes/fondo2.png").convert_alpha()
+    fondoPresentacion = pygame.image.load("imagenes/fondo.png").convert_alpha()
 
     # Abcdario
     abc=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","ñ","o","p",
          "q","r","s","t","u","v","w","x","y","z"]            
     
-    '''
+    
     #  Items
-    items=["paises", "colores", "animales"]    
-    
-    paises = (codecs.open("items/paises.txt",  "r", "utf-8").read()).split(",")
-    colores = (codecs.open("items/colores.txt",  "r", "utf-8").read()).split(",")
-    animales = (codecs.open("items/animales.txt",  "r", "utf-8").read()).split(",")
-      
-    listaDeTodo=[paises, colores, animales]
-    #print(listaDeTodo)
-    '''
-    
-    listaDeTodo = []
-    items = []
-    lista = (codecs.open("items/lista.txt", "r", "utf-8").read()).split(".")
-    for i in range (len(lista)):
-        listaDeTodo.append(lista[i].split(","))
-        items.append(listaDeTodo[i][0])
-        listaDeTodo[i].pop(0)
+    #   items=["nombres","animales","colores","sustantivos comunes","paises","marcas","capitales o provincias argentinas"]
+    items=["paises", "colores", "animales"] 
+    listaDeTodo = cargarItems()
     
     print(listaDeTodo)
     
                     ####  CICLO DE JUEGO  ####
-    JuegoNuevo = True 
+    juegoNuevo = True 
     while True:
-        if JuegoNuevo:
+        if juegoNuevo:
             # Controladores de ciclo
-            JuegoNuevo = False   
+            juegoNuevo = False   
             presentacion = True
             habilitarReinicio = False
             ctaRegresiva = 4
@@ -79,15 +65,15 @@ def main():
             palabraUsuario=""
             eleccionUsuario=[]
             eleccionCompu=[]
-            usuario = "..."
             aciertos = 0
             incorrectas = 0
             segundos = 0
             letraAzar = unaAlAzar(abc)
             
             # Musica
-            #pygame.mixer.music.load("sonidos/tetris.mp3")
-            #pygame.mixer.music.play()
+            pygame.mixer.music.load("sonidos/intro.mp3")
+            pygame.mixer.music.play()
+            aycaramba=pygame.mixer.Sound("sonidos/aycaramba.wav")
             
         while i < len(items):  
             # 1 frame cada 1/fps segundos
@@ -102,6 +88,8 @@ def main():
                 if e.type == KEYDOWN:
                         if e.key == K_RETURN:             
                             if (len(palabraUsuario) > 0):
+                                if (i < (len(items)-1)):
+                                    aycaramba.play()
                                 eleccionUsuario.append(palabraUsuario)
                                 #chequea si es correcta y suma o resta puntos
                                 sumar = esCorrecta(palabraUsuario, letraAzar, items[i], items, listaDeTodo)                                
@@ -117,8 +105,8 @@ def main():
                                 
                         elif (e.key != K_RETURN and not presentacion):   
                             '''
-                            Se comentó la funcion dameLetraApretada() ya que no acepaba tildes ni ñ
-                            Se optienen las letras por medio de e.unicode
+                                Se comentó la funcion dameLetraApretada() ya que no acepaba tildes ni ñ
+                                Se optienen las letras por medio de e.unicode
                             '''                                             
                             #letra = dameLetraApretada(e.key)                        
                             letra = e.unicode                        
@@ -142,11 +130,11 @@ def main():
                 dibujar(screen, letraAzar, items[i], palabraUsuario, puntos, segundos)
             else:
                 eleccionCompu=juegaCompu(letraAzar, listaDeTodo)
-                dibujarSalida(screen, letraAzar, items, eleccionUsuario, eleccionCompu, puntos, segundos, usuario, aciertos, incorrectas)
+                dibujarSalida(screen, letraAzar, items, eleccionUsuario, eleccionCompu, puntos, segundos, aciertos, incorrectas)
                 habilitarReinicio = True
             pygame.display.flip()
     
-        while not JuegoNuevo:
+        while not juegoNuevo:
             for e in pygame.event.get():
                 if e.type == QUIT:
                     pygame.quit()
@@ -154,7 +142,7 @@ def main():
                 if e.type == KEYDOWN:
                     if habilitarReinicio and e.key == K_RETURN: 
                             i = 0
-                            JuegoNuevo = True
+                            juegoNuevo = True
     
 
 if __name__ == "__main__":

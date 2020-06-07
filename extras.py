@@ -73,9 +73,9 @@ def dibujarPresentacion(screen, imgPresentacion, segundos):
     
     defaultFontMUYGRANDE = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA_MUYGRANDE)
     
-    RenCtaRegresiva = defaultFontMUYGRANDE.render(str(segundos), 1, COLOR_LETRA)
+    RenCtaRegresiva = defaultFontMUYGRANDE.render(str(segundos), 1, COLOR_BLANCO)
     
-    screen.blit(RenCtaRegresiva, (400, 300))
+    screen.blit(RenCtaRegresiva, (396, 115))
 
 
 def dibujar(screen, letra, item, palabraUsuario, puntos, segundos):
@@ -101,9 +101,9 @@ def dibujar(screen, letra, item, palabraUsuario, puntos, segundos):
     screen.blit(ren4, (ANCHO//2-TAMANO_LETRA_GRANDE, 50))
 
 
-def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, segundos, usuario, aciertos, incorrectas):
+def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, segundos, aciertos, incorrectas):
     defaultFont = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA)
-    defaultFontGRANDE = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA_GRANDE)
+    defaultFontGRANDE = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA_RDO)
     defaultFontMUYGRANDE = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA_MUYGRANDE)
       
     #Linea Horizontal
@@ -120,18 +120,18 @@ def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, 
     
     y=80
     for palabra in items:
-        screen.blit(defaultFontGRANDE.render(palabra, 1, COLOR_TEXTO), (10, y))
-        y=y+TAMANO_LETRA_GRANDE*2
+        screen.blit(defaultFontGRANDE.render(palabra.upper(), 1, COLOR_TEXTO), (10, y))
+        y=y+TAMANO_LETRA_RDO*2
 
     y=80
     for palabra in eleccionUsuario:
-        screen.blit(defaultFontGRANDE.render(palabra, 1, COLOR_LETRA), (ANCHO//2, y))
-        y=y+TAMANO_LETRA_GRANDE*2
+        screen.blit(defaultFontGRANDE.render(palabra.upper(), 1, COLOR_LETRA), (ANCHO//2, y))
+        y=y+TAMANO_LETRA_RDO*2
 
     y=80
     for palabra in eleccioncompu:
-        screen.blit(defaultFontGRANDE.render(palabra, 1, COLOR_LETRAS), (ANCHO-200, y))
-        y=y+TAMANO_LETRA_GRANDE*2
+        screen.blit(defaultFontGRANDE.render(palabra.upper(), 1, COLOR_LETRAS), (ANCHO-200, y))
+        y=y+TAMANO_LETRA_RDO*2
 
     
     '''
@@ -162,14 +162,13 @@ def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, 
     
     # Record
     ultimo_record = recuperar_puntajes()
-    nombre = ultimo_record[0][0]
-    record = ultimo_record[0][1]
-    tiempo = ultimo_record[0][2]
+    record = ultimo_record[0][0]
+    tiempo = ultimo_record[0][1]
     
     # Renderizar nuevo record
     if total > record:        
         #  Musica ganador
-        pygame.mixer.music.load("sonidos/ganador.mp3")
+        pygame.mixer.music.load("sonidos/ta-ra-ra-ra-hey.mp3")
         pygame.mixer.music.play()
     
     
@@ -181,17 +180,17 @@ def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, 
     
     
         #Guardar nuevo record    
-        puntajes = [(usuario, total, str(int(segundos)))]   
+        puntajes = [(total, str(int(segundos)))]   
         guardar_puntajes(puntajes)
     
     # Renderizar record anterior
     else:        
         #  Musica perdedor
-        pygame.mixer.music.load("sonidos/perdedor.mp3")
+        pygame.mixer.music.load("sonidos/ouch..mp3")
         pygame.mixer.music.play()
 
         
-        renRecord= defaultFont.render(nombre + " Tu record anterior fué de " + str(record)+ "pts, en " + tiempo + " segundos", 1, COLOR_LETRAS)
+        renRecord= defaultFont.render("Tu record anterior fué de " + str(record)+ "pts, en " + tiempo + " segundos", 1, COLOR_LETRAS)
         screen.blit(renRecord, (100, 470))
     
 
