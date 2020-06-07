@@ -1,1 +1,3 @@
-ANIMALES,vaca,alce,ñandú.COLORES,azul,rojo,verde,elesté.PAISES,argentina,brazil,peru,españa
+ANIMALES,vaca,alce,ñandú.
+COLORES,azul,rojo,verde,elesté.
+PAISES,argentina,brazil,peru,españa

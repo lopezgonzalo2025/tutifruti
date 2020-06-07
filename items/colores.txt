@@ -1,1 +1,1 @@
-azul,elesté,ezul
+azul,amarillo,blanco,beige,celeste,cian,dorado,esmeralda,fucsia,granate,gris,jade,lila,magenta,marron,naranja,negro,rojo,rosa,turquesa,uva,verde,violeta,yeso,zinc

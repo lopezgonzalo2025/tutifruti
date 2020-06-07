@@ -3,15 +3,18 @@ import codecs
 
 
 def unaAlAzar(abc):
-    #letraElegida = random.choice(abc)
-    #return letraElegida
-    return "e"
+    letraElegida = random.choice(abc)
+    return letraElegida
+    
 
 def esCorrecta(palabraUsuario, letra, item, items, listaDeTodo):
     palabraUsuario = palabraUsuario.lower()
-    if (palabraUsuario[0] == letra and palabraUsuario in listaDeTodo[items.index(item)]):
-        return [10, 0] 
-    return [0, -5]    
+    indiceDelItem = items.index(item)
+    opcionesDelItem = listaDeTodo[indiceDelItem]
+    
+    if (palabraUsuario[0] == letra and palabraUsuario in opcionesDelItem):
+        return 10
+    return -5    
 
 
 def juegaCompu(letraAzar, listaDeTodo):
@@ -53,16 +56,6 @@ def recuperar_puntajes():
 
 
 def cargarItems():
-    print("en cargasItems")
-    
-    paises = (codecs.open("items/paises.txt",  "r", "utf-8").read()).split(",")
-    colores = (codecs.open("items/colores.txt",  "r", "utf-8").read()).split(",")
-    animales = (codecs.open("items/animales.txt",  "r", "utf-8").read()).split(",")
-      
-    listaDeTodo=[paises, colores, animales]
-    
-    return listaDeTodo
-'''
     nombres=[]
     animales=[]
     colores=[]
@@ -120,7 +113,6 @@ def cargarItems():
     cap_prov_arg_txt.close()
     cap_prov_arg=cap_prov_arg[0].split(",")
 
-    listaDeTodo=[nombres,colores,sustantivos_comunes,paises,marcas,cap_prov_arg]
+    listaDeTodo=[nombres, animales, colores, sustantivos_comunes, paises,marcas, cap_prov_arg]
     
     return listaDeTodo
-'''

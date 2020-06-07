@@ -33,17 +33,22 @@ def main():
     fondoPresentacion = pygame.image.load("imagenes/fondo.png").convert_alpha()
 
     # Abcdario
-    abc=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","ñ","o","p",
+    abc=["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p",
          "q","r","s","t","u","v","w","x","y","z"]            
     
     
     #  Items
-    #   items=["nombres","animales","colores","sustantivos comunes","paises","marcas","capitales o provincias argentinas"]
-    items=["paises", "colores", "animales"] 
+    items=["nombres","animales","colores","sustantivos comunes","paises","marcas","cap o prov arg"]
+   
     listaDeTodo = cargarItems()
     
-    print(listaDeTodo)
+    print(listaDeTodo[0])
+    print("")
+    print(listaDeTodo[1])
+    print("")
     
+    
+
                     ####  CICLO DE JUEGO  ####
     juegoNuevo = True 
     while True:
@@ -52,7 +57,7 @@ def main():
             juegoNuevo = False   
             presentacion = True
             habilitarReinicio = False
-            ctaRegresiva = 4
+            ctaRegresiva = 1
             i = 0
 
             # Tiempo total del juego
@@ -93,10 +98,12 @@ def main():
                                 eleccionUsuario.append(palabraUsuario)
                                 #chequea si es correcta y suma o resta puntos
                                 sumar = esCorrecta(palabraUsuario, letraAzar, items[i], items, listaDeTodo)                                
-                                puntos += sumar[0] + sumar[1]
+                                puntos += sumar
                                 
-                                aciertos += sumar[0]
-                                incorrectas += sumar[1]
+                                if (sumar > 0):
+                                    aciertos += sumar
+                                else:
+                                    incorrectas += sumar
                                 
                                 palabraUsuario = ""
                                 i = i+1

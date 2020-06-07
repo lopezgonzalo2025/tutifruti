@@ -146,7 +146,7 @@ def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, 
   
     total = puntos + ptsCoincidencia - segundos 
     
-    
+
     renAcierto = defaultFont.render      ("Aciertos:             " + str(aciertos) + "pts", 1, COLOR_TEXTO)
     renCoincidenecia = defaultFont.render("Coincidencias:    " + str(ptsCoincidencia) + "pts", 1, COLOR_TEXTO)
     renIncorrectas = defaultFont.render  ("Incorrectas:        " + str(incorrectas) + "pts", 1, COLOR_TEXTO)
