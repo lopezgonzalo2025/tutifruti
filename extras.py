@@ -1,7 +1,13 @@
+
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import pygame
+
 from pygame.locals import *
 from configuracion import *
 from funcionesVACIAS import *
+
 
 # Esta funcion se dejo de usar
 def dameLetraApretada(key):
@@ -68,26 +74,26 @@ def dameLetraApretada(key):
 
 def dibujarPresentacion(screen, imgPresentacion, segundos):
     screen.blit(imgPresentacion, (0, 0))
-    
+
     segundos *= -1
-    
+
     defaultFontMUYGRANDE = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA_MUYGRANDE)
-    
+
     RenCtaRegresiva = defaultFontMUYGRANDE.render(str(segundos), 1, COLOR_BLANCO)
-    
+
     screen.blit(RenCtaRegresiva, (396, 115))
 
 
 def dibujar(screen, letra, item, palabraUsuario, puntos, segundos):
     defaultFont = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA)
     defaultFontGRANDE = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA_GRANDE)
-    defaultFontMUYGRANDE = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA_MUYGRANDE)
+    defaultFontMUYGRANDE = pygame.font.SysFont("arial", TAMANO_LETRA_MUYGRANDE)
 
     #Linea Horizontal
     pygame.draw.line(screen, (255, 255, 255), (0, ALTO - 70), (ANCHO, ALTO - 70), 5)
 
     #muestra lo que escribe el jugador
-    screen.blit(defaultFont.render(palabraUsuario, 1, COLOR_TEXTO), (190, 570))
+    screen.blit(defaultFont.render(palabraUsuario.lower(), 1, COLOR_TEXTO), (190, 570))
 
     #muestra puntos, tiempo, el item y la letra
     ren1 = defaultFont.render("Puntos: " + str(puntos), 1, COLOR_TEXTO)
@@ -104,20 +110,21 @@ def dibujar(screen, letra, item, palabraUsuario, puntos, segundos):
 def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, segundos, aciertos, incorrectas):
     defaultFont = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA)
     defaultFontGRANDE = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA_RDO)
-    defaultFontMUYGRANDE = pygame.font.Font(pygame.font.get_default_font(), TAMANO_LETRA_MUYGRANDE)
-      
+    defaultFontMUYGRANDE = pygame.font.SysFont("arial", TAMANO_LETRA_MUYGRANDE)
+
+
     #Linea Horizontal
     pygame.draw.line(screen, (255, 255, 255), (0, ALTO - 70), (ANCHO, ALTO - 70), 5)
 
     #muestra puntos, tiempo, el item y la letra
     ren1 = defaultFont.render("Puntos: " + str(puntos), 1, COLOR_TEXTO)
-    ren2 = defaultFont.render("Tiempo: " + str(int(segundos)), 1, COLOR_TIEMPO_FINAL if segundos > 60 else COLOR_TEXTO)
+    ren2 = defaultFont.render("Tiempo: " + str(segundos), 1, COLOR_TIEMPO_FINAL if segundos > 60 else COLOR_TEXTO)
     ren3 = defaultFontMUYGRANDE.render(letra.upper(), 1, COLOR_LETRA)
-    
+
     screen.blit(ren1, (ANCHO - 120, 10))
     screen.blit(ren2, (10, 10))
     screen.blit(ren3, (ANCHO//2-TAMANO_LETRA_GRANDE, 10))
-    
+
     y=80
     for palabra in items:
         screen.blit(defaultFontGRANDE.render(palabra.upper(), 1, COLOR_TEXTO), (10, y))
@@ -125,74 +132,74 @@ def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, 
 
     y=80
     for palabra in eleccionUsuario:
-        screen.blit(defaultFontGRANDE.render(palabra.upper(), 1, COLOR_LETRA), (ANCHO//2, y))
+        screen.blit(defaultFontGRANDE.render(palabra.lower(), 1, COLOR_LETRA), (ANCHO//2, y))
         y=y+TAMANO_LETRA_RDO*2
 
     y=80
     for palabra in eleccioncompu:
-        screen.blit(defaultFontGRANDE.render(palabra.upper(), 1, COLOR_LETRAS), (ANCHO-200, y))
+        screen.blit(defaultFontGRANDE.render(palabra.lower(), 1, COLOR_LETRAS), (ANCHO-200, y))
         y=y+TAMANO_LETRA_RDO*2
 
-    
+
     '''
         EXTRAS AGREGADOS
     '''
-    
+
     # Resultados
     ptsCoincidencia = 0
     for idx in range(0, (len(eleccioncompu))):
         if eleccioncompu[idx] == eleccionUsuario[idx]:
             ptsCoincidencia += 10
-  
-    total = puntos + ptsCoincidencia - segundos 
-    
+
+    total = puntos + ptsCoincidencia - segundos
+
 
     renAcierto = defaultFont.render      ("Aciertos:             " + str(aciertos) + "pts", 1, COLOR_TEXTO)
     renCoincidenecia = defaultFont.render("Coincidencias:    " + str(ptsCoincidencia) + "pts", 1, COLOR_TEXTO)
     renIncorrectas = defaultFont.render  ("Incorrectas:        " + str(incorrectas) + "pts", 1, COLOR_TEXTO)
     renDescTiempo = defaultFont.render   ("Tiempo:              - " + str(segundos) + "pts", 1, COLOR_TEXTO)
     renTotal = defaultFont.render        ("TOTAL:        " + str(total) + "pts", 1, COLOR_TEXTO)
-    
+
     screen.blit(renAcierto, (100, 300))
     screen.blit(renCoincidenecia, (100, 330))
     screen.blit(renIncorrectas, (100, 360))
     screen.blit(renDescTiempo, (100, 390))
     screen.blit(renTotal, (150, 430))
-  
-    
+
+
     # Record
     ultimo_record = recuperar_puntajes()
     record = ultimo_record[0][0]
     tiempo = ultimo_record[0][1]
-    
+
     # Renderizar nuevo record
-    if total > record:        
+    if total > record:
         #  Musica ganador
         pygame.mixer.music.load("sonidos/ta-ra-ra-ra-hey.mp3")
         pygame.mixer.music.play()
-    
-    
+
+
         renFelicidades = defaultFont.render("FELICIDADES NUEVO RECORD", 1, COLOR_LETRAS)
         renNuevoRecord = defaultFont.render("El nuevo record es de : " + str(total) + "pts", 1, COLOR_LETRAS)
-    
+
         screen.blit(renFelicidades, (400, 350))
         screen.blit(renNuevoRecord, (400, 400))
-    
-    
-        #Guardar nuevo record    
-        puntajes = [(total, str(int(segundos)))]   
+
+
+        #Guardar nuevo record
+        puntajes = [(total, str(int(segundos)))]
         guardar_puntajes(puntajes)
-    
+
     # Renderizar record anterior
-    else:        
+    else:
         #  Musica perdedor
         pygame.mixer.music.load("sonidos/ouch..mp3")
         pygame.mixer.music.play()
 
-        
+
         renRecord= defaultFont.render("Tu record anterior fué de " + str(record)+ "pts, en " + tiempo + " segundos", 1, COLOR_LETRAS)
         screen.blit(renRecord, (100, 470))
-    
+
 
     # Jugar de nuevo
     renReiniciar = defaultFont.render("PRESIONE ENTER PARA JUGAR DE NUEVO", 1, COLOR_LETRA)

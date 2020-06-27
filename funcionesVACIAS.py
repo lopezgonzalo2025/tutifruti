@@ -5,16 +5,16 @@ import codecs
 def unaAlAzar(abc):
     letraElegida = random.choice(abc)
     return letraElegida
-    
+
 
 def esCorrecta(palabraUsuario, letra, item, items, listaDeTodo):
     palabraUsuario = palabraUsuario.lower()
     indiceDelItem = items.index(item)
     opcionesDelItem = listaDeTodo[indiceDelItem]
-    
+
     if (palabraUsuario[0] == letra and palabraUsuario in opcionesDelItem):
         return 10
-    return -5    
+    return -5
 
 
 def juegaCompu(letraAzar, listaDeTodo):
@@ -46,12 +46,12 @@ def guardar_puntajes(puntajes):
 def recuperar_puntajes():
     puntajes = []
     historial = open("datos/historial.txt", "r")
-    
+
     for linea in historial:
         puntaje, tiempo = linea.rstrip("\n").split(",")
         puntajes.append((int(puntaje),tiempo))
     historial.close()
-    
+
     return puntajes
 
 
@@ -114,5 +114,5 @@ def cargarItems():
     cap_prov_arg=cap_prov_arg[0].split(",")
 
     listaDeTodo=[nombres, animales, colores, sustantivos_comunes, paises,marcas, cap_prov_arg]
-    
+
     return listaDeTodo
