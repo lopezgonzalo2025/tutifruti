@@ -39,9 +39,8 @@ def main():
     #  Items
     items=["nombres","animales","colores","sustantivos comunes","paises","marcas","cap o prov arg"]
 
-    listaDeTodo = cargarItems()
-
-    print(listaDeTodo[1])
+    listaDeTodo = cargarItems(items)
+    
 
                     ####  CICLO DE JUEGO  ####
     juegoNuevo = True
@@ -51,7 +50,7 @@ def main():
             juegoNuevo = False
             presentacion = True
             habilitarReinicio = False
-            ctaRegresiva = 6
+            ctaRegresiva = 3
             i = 0
 
             # Tiempo total del juego

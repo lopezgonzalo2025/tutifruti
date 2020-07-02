@@ -178,7 +178,6 @@ def dibujarSalida(screen, letra, items, eleccionUsuario, eleccioncompu, puntos, 
         pygame.mixer.music.load("sonidos/ta-ra-ra-ra-hey.mp3")
         pygame.mixer.music.play()
 
-
         renFelicidades = defaultFont.render("FELICIDADES NUEVO RECORD", 1, COLOR_LETRAS)
         renNuevoRecord = defaultFont.render("El nuevo record es de : " + str(total) + "pts", 1, COLOR_LETRAS)
 
